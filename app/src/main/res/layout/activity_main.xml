@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE9E2"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/alarmTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:text="k.d_kai's \nALARM CLOCK"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/alarmOffTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:text="ALL ALARMS ARE OFF"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textSize="25dp"
+        android:visibility="invisible"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarmTxt"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#FFB39C"
+        app:cardCornerRadius="20dp"
+        android:layout_centerHorizontal="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add alarm"
+                android:fontFamily="@font/raleway_medium"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_add_alarm"
+                />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addAlarm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:textSize="30dp"
+        android:text="NO ALARMS SET"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:visibility="invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarmList"
+        android:layout_below="@id/addAlarm"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
