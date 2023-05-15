@@ -3,11 +3,9 @@ package com.daghlas.myclock;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,11 +14,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -33,6 +29,8 @@ public class AddAlarm extends AppCompatActivity{
     TextView alarmTone, vibrPattern;
     CardView mon, tue, wed, thur, fri, sat, sun;
 
+    EditText alarmNameTag;
+
     TimePicker timePicker;
 
     @Override
@@ -44,6 +42,8 @@ public class AddAlarm extends AppCompatActivity{
 
         cancel = findViewById(R.id.cancelAlarm);
         save = findViewById(R.id.saveAlarm);
+
+        alarmNameTag = findViewById(R.id.setAlarmName1);
 
         mon = findViewById(R.id.mon);
         tue = findViewById(R.id.tue);
@@ -78,13 +78,25 @@ public class AddAlarm extends AppCompatActivity{
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH),
-                        timePicker.getHour(),
-                        timePicker.getMinute(),0);
-                setAlarm(cal.getTimeInMillis());
+                //Calendar cal = Calendar.getInstance();
+                //cal.set(cal.get(Calendar.YEAR),
+                //        cal.get(Calendar.MONTH),
+                //        cal.get(Calendar.DAY_OF_MONTH),
+                //        timePicker.getHour(),
+                //        timePicker.getMinute());
+                //setAlarm(cal.getTimeInMillis());
+
+                int hour = timePicker.getHour();
+                int minute = timePicker.getMinute();
+                String alarmTag = alarmNameTag.getText().toString();
+
+                Intent intent = new Intent(AddAlarm.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //closes previous launch activity
+                intent.putExtra("selected_hour", hour);
+                intent.putExtra("selected_minute", minute);
+                intent.putExtra("selected_name", alarmTag);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -182,7 +194,7 @@ public class AddAlarm extends AppCompatActivity{
 
     }
 
-    //SETTING ALARM TONE
+    //SETTING SELECTED ALARM TONE TITLE TO TEXT VIEW
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -193,18 +205,20 @@ public class AddAlarm extends AppCompatActivity{
             alarmTone.setText(alarmToneName);
         }
     }
+
+    //HELPER METHODS TO FETCH SELECTED ALARM TONE TITLE NAME
     private String getRingtoneTitle(Uri ringtoneUri) {
-        Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), ringtoneUri);
-        return ringtone.getTitle(getApplicationContext());
+        Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
+        return ringtone.getTitle(this);
     }
 
     //method to set alarm
     private void setAlarm(long timeInMillis){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_DAY,pendingIntent);
-        Toast.makeText(this, "Alarm set", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "alarm set", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -6,11 +6,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<AlarmModels> alarmModels =  new ArrayList<>();
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Retrieve the selected time from the Intent extras
+        int selectedHour = getIntent().getIntExtra("selected_hour", 0);
+        int selectedMinute = getIntent().getIntExtra("selected_minute", 0);
+
+        String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
+        String selectedName = getIntent().getStringExtra("selected_name");
+
+        // Set the selected time to the TextView in the RecyclerView's adapter
+        adapter.setSelectedTime(selectedTime);
+        adapter.setSelectedName(selectedName);
+        adapter.notifyDataSetChanged();
 
     }
 }
