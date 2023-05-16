@@ -12,6 +12,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mediaPlayer.start();
-        Toast.makeText(context, "wake alarm ringing", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "wake alarm ringing", Toast.LENGTH_LONG).show();
     }
 }
