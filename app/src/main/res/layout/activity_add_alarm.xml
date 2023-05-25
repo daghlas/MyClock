@@ -377,6 +377,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:thumbTint="#FFB39C"
+                app:trackTint="@drawable/switch_colors"
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp" />
 
@@ -451,6 +452,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:thumbTint="#FFB39C"
+                app:trackTint="@drawable/switch_colors"
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp" />
 
@@ -462,7 +464,7 @@
         android:id="@+id/cancelAlarm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="cancel"
+        android:text="Cancel"
         android:backgroundTint="#FFB39C"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
