@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
 
 public class AddAlarm extends AppCompatActivity{
 
@@ -33,6 +31,7 @@ public class AddAlarm extends AppCompatActivity{
 
     TimePicker timePicker;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,37 +66,33 @@ public class AddAlarm extends AppCompatActivity{
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        cancel.setOnClickListener(v -> onBackPressed());
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View v) {
-                //Calendar cal = Calendar.getInstance();
-                //cal.set(cal.get(Calendar.YEAR),
-                //        cal.get(Calendar.MONTH),
-                //        cal.get(Calendar.DAY_OF_MONTH),
-                //        timePicker.getHour(),
-                //        timePicker.getMinute());
-                //setAlarm(cal.getTimeInMillis());
+        save.setOnClickListener(v -> {
+            //Calendar cal = Calendar.getInstance();
+            //cal.set(cal.get(Calendar.YEAR),
+            //        cal.get(Calendar.MONTH),
+            //        cal.get(Calendar.DAY_OF_MONTH),
+            //        timePicker.getHour(),
+            //        timePicker.getMinute());
+            //setAlarm(cal.getTimeInMillis());
 
-                int hour = timePicker.getHour();
-                int minute = timePicker.getMinute();
-                String alarmTag = alarmNameTag.getText().toString();
+            int hour = timePicker.getHour();
+            int minute = timePicker.getMinute();
+            String alarmTag = alarmNameTag.getText().toString();
 
-                Intent intent = new Intent(AddAlarm.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //closes previous launch activity
-                intent.putExtra("selected_hour", hour);
-                intent.putExtra("selected_minute", minute);
-                intent.putExtra("selected_name", alarmTag);
-                startActivity(intent);
-                finish();
-            }
+            Intent intent = new Intent(AddAlarm.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //closes previous launch activity
+            intent.putExtra("selected_hour", hour);
+            intent.putExtra("selected_minute", minute);
+            intent.putExtra("selected_name", alarmTag);
+            startActivity(intent);
+            finish();
+
+            //reset
+            intent.removeExtra("selected_name");
+            intent.removeExtra("selected_hour");
+            intent.removeExtra("selected_minute");
         });
 
         mon.setOnClickListener(new View.OnClickListener() {
