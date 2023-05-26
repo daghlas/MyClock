@@ -37,7 +37,7 @@
         android:layout_below="@id/alarmTxt"
         android:layout_marginTop="80dp"
         android:backgroundTint="#FFB39C"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         android:layout_centerHorizontal="true">
 
 
@@ -58,8 +58,10 @@
 
             <ImageView
                 android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="1dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_add_alarm"
                 />
 
