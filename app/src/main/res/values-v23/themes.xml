@@ -5,5 +5,8 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="android:statusBarColor">@color/theme</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorAccent">@color/primary</item>
+
+        <item name="colorControlHighlight">@color/theme</item>
     </style>
 </resources>
