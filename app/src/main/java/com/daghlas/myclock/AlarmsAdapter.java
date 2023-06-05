@@ -15,33 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<AlarmModels> alarmModels;
+    private final List<AlarmModels> data;
 
-    private String selectedTime;
-    @SuppressLint("NotifyDataSetChanged")
-    public void setSelectedTime(String time) {
-        selectedTime = time;
-        notifyDataSetChanged();
-    }
-    private String selectedName;
-    @SuppressLint("NotifyDataSetChanged")
-    public void setSelectedName(String name) {
-        selectedName = name;
-        notifyDataSetChanged();
-    }
-
-    //public AlarmsAdapter(Context context, ArrayList<AlarmModels> alarmModels){
-    //    this.context = context;
-    //    this.alarmModels = alarmModels;
-    //}
-
-    private List<String> data;
-
-    public AlarmsAdapter(Context context, List<String> data) {
+    public AlarmsAdapter(Context context, List<AlarmModels> data) {
         this.context = context;
         this.data = data;
     }
@@ -56,12 +37,11 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull AlarmsAdapter.MyViewHolder holder, int position) {
-        String value = data.get(position);
-        holder.setTime.setText(selectedTime);
-        holder.alarmName.setText(selectedName);
-        //holder.setTime.setText(alarmModels.getTime());
+        AlarmModels alarmModels = data.get(position);
+        holder.setTime.setText(String.format(Locale.getDefault(), "%02d:%02d", alarmModels.getHour(), alarmModels.getMinute()));
+        holder.alarmName.setText(alarmModels.getAlarmTag());
 
-        //edit alarm
+        //edit alarm on adapter position click
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +54,6 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.MyViewHold
     @Override
     public int getItemCount() {
         return data.size();
-        //return 1;
-        //return alarmModels.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
