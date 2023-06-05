@@ -2,24 +2,33 @@ package com.daghlas.myclock;
 
 public class AlarmModels {
 
-    String time;
-    String repeat;
+    int hour;
+    int minute;
+    int repeat;
+    String alarmTag;
+
     int on_off;
 
-    public AlarmModels(String time, String repeat, int on_off) {
-        this.time = time;
-        this.repeat = repeat;
-        this.on_off = on_off;
+    public AlarmModels(int hour, int minute, String alarmTag){
+        this.hour = hour;
+        this.minute = minute;
+        //this.repeat = repeat;
+        this.alarmTag = alarmTag;
+        //this.on_off = on_off;
     }
 
-    public String getTime() {
-        return time;
+    public int getHour() {
+        return hour;
     }
-
-    public String getRepeat() {
+    public int getMinute() {
+        return minute;
+    }
+    public int getRepeat() {
         return repeat;
     }
-
+    public String getAlarmTag() {
+        return alarmTag;
+    }
     public int getOn_off() {
         return on_off;
     }
