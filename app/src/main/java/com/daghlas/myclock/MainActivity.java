@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     CardView addAlarm;
     RecyclerView recyclerView;
-    ArrayList<AlarmModels> alarmModels =  new ArrayList<>();
+    List<AlarmModels> data;
+    AlarmsAdapter adapter;
     TextView noAlarms;
 
     @SuppressLint("NotifyDataSetChanged")
@@ -39,43 +40,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         //AlarmsAdapter adapter = new AlarmsAdapter(this, alarmModels);
 
-        List<String> data;
         data = new ArrayList<>();
 
-        AlarmsAdapter adapter = new AlarmsAdapter(this,data);
-        recyclerView.setAdapter(adapter);
-
         Intent intent = getIntent();
-        //if (intent != null && intent.hasExtra("selected_hour") && intent.hasExtra("selected_minute")) {
-
-        //    int selectedHour = getIntent().getIntExtra("selected_hour", 0);
-        //    int selectedMinute = getIntent().getIntExtra("selected_minute", 0);
-        //    String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
-
-        //    data.add(selectedTime);
-        //}
         if (intent != null && intent.hasExtra("selected_name")) {
             noAlarms.setVisibility(View.INVISIBLE);
-            //String selectedName = intent.getStringExtra("selected_name");
 
             // Retrieve the selected time from the Intent extras
             int selectedHour = getIntent().getIntExtra("selected_hour", 0);
             int selectedMinute = getIntent().getIntExtra("selected_minute", 0);
-
-            String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
             String selectedName = getIntent().getStringExtra("selected_name");
 
             // Set the selected time to the TextView in the RecyclerView's adapter
-            adapter.setSelectedTime(selectedTime);
-            adapter.setSelectedName(selectedName);
-            data.add(selectedName);
+            AlarmModels alarmModels = new AlarmModels(selectedHour, selectedMinute, selectedName);
+            data.add(alarmModels);
             //adapter.notifyDataSetChanged();
 
             // Notify the adapter that a new item has been added
-            adapter.notifyItemInserted(data.size() - 1);
+            //adapter.notifyItemInserted(data.size() - 1);
             // scroll the RecyclerView to the newly added item
-            recyclerView.smoothScrollToPosition(data.size() - 1);
+            //recyclerView.smoothScrollToPosition(data.size() - 1);
         }
+
+        adapter = new AlarmsAdapter(this,data);
+        recyclerView.setAdapter(adapter);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         addAlarm.setOnClickListener(new View.OnClickListener() {
@@ -87,18 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // Retrieve the selected time from the Intent extras
-        //int selectedHour = getIntent().getIntExtra("selected_hour", 0);
-        //int selectedMinute = getIntent().getIntExtra("selected_minute", 0);
-
-        //String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
-        //String selectedName = getIntent().getStringExtra("selected_name");
-
-        // Set the selected time to the TextView in the RecyclerView's adapter
-        //adapter.setSelectedTime(selectedTime);
-        //adapter.setSelectedName(selectedName);
-        //adapter.notifyDataSetChanged();
 
     }
 }
