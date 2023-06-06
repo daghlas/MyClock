@@ -38,32 +38,31 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.alarmList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        //AlarmsAdapter adapter = new AlarmsAdapter(this, alarmModels);
 
         data = new ArrayList<>();
+
+        adapter = new AlarmsAdapter(this,data);
+        recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("selected_name")) {
             noAlarms.setVisibility(View.INVISIBLE);
 
             // Retrieve the selected time from the Intent extras
-            int selectedHour = getIntent().getIntExtra("selected_hour", 0);
-            int selectedMinute = getIntent().getIntExtra("selected_minute", 0);
-            String selectedName = getIntent().getStringExtra("selected_name");
+            int selectedHour = intent.getIntExtra("selected_hour", 0);
+            int selectedMinute = intent.getIntExtra("selected_minute", 0);
+            String selectedName = intent.getStringExtra("selected_name");
 
             // Set the selected time to the TextView in the RecyclerView's adapter
             AlarmModels alarmModels = new AlarmModels(selectedHour, selectedMinute, selectedName);
             data.add(alarmModels);
-            //adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
 
             // Notify the adapter that a new item has been added
             //adapter.notifyItemInserted(data.size() - 1);
             // scroll the RecyclerView to the newly added item
             //recyclerView.smoothScrollToPosition(data.size() - 1);
         }
-
-        adapter = new AlarmsAdapter(this,data);
-        recyclerView.setAdapter(adapter);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         addAlarm.setOnClickListener(new View.OnClickListener() {
