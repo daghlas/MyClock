@@ -20,15 +20,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 
 public class AddAlarm extends AppCompatActivity{
 
     Button cancel, save;
     TextView alarmTone, vibrPattern;
     CardView mon, tue, wed, thur, fri, sat, sun;
-
     EditText alarmNameTag;
-
     TimePicker timePicker;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -69,14 +69,16 @@ public class AddAlarm extends AppCompatActivity{
         cancel.setOnClickListener(v -> onBackPressed());
 
         save.setOnClickListener(v -> {
-            //Calendar cal = Calendar.getInstance();
-            //cal.set(cal.get(Calendar.YEAR),
-            //        cal.get(Calendar.MONTH),
-            //        cal.get(Calendar.DAY_OF_MONTH),
-            //        timePicker.getHour(),
-            //        timePicker.getMinute());
-            //setAlarm(cal.getTimeInMillis());
+            //SET THE ALARM
+            Calendar cal = Calendar.getInstance();
+            cal.set(cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    timePicker.getHour(),
+                    timePicker.getMinute());
+            setAlarm(cal.getTimeInMillis());
 
+            //FETCH SELECTED TIME AND NAME TO DISPLAY ON ALARM LIST ON OTHER ACTIVITY
             int hour = timePicker.getHour();
             int minute = timePicker.getMinute();
             String alarmTag = alarmNameTag.getText().toString();
@@ -89,7 +91,7 @@ public class AddAlarm extends AppCompatActivity{
             startActivity(intent);
             finish();
 
-            //reset
+            //reset SAVED VALUES WHEN SAVE BUTTON IS CLICKED
             intent.removeExtra("selected_name");
             intent.removeExtra("selected_hour");
             intent.removeExtra("selected_minute");
