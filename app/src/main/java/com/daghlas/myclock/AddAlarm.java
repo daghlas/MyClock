@@ -22,6 +22,11 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+/**
+ * Created by Daghlas Kaire
+ * Github: https://github.com/daghlas
+ * Mail: daghlaskaire58@gmail.com
+ */
 
 public class AddAlarm extends AppCompatActivity{
 
