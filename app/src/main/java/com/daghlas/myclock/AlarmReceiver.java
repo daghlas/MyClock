@@ -7,6 +7,12 @@ import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.widget.Toast;
 
+/**
+ * Created by Daghlas Kaire
+ * Github: https://github.com/daghlas
+ * Mail: daghlaskaire58@gmail.com
+ */
+
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
