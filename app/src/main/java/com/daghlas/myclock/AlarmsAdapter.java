@@ -17,6 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Created by Daghlas Kaire
+ * Github: https://github.com/daghlas
+ * Mail: daghlaskaire58@gmail.com
+ */
+
 public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.MyViewHolder> {
 
     Context context;
