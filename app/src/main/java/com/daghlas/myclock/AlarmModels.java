@@ -1,5 +1,11 @@
 package com.daghlas.myclock;
 
+/**
+ * Created by Daghlas Kaire
+ * Github: https://github.com/daghlas
+ * Mail: daghlaskaire58@gmail.com
+ */
+
 public class AlarmModels {
 
     int hour;
